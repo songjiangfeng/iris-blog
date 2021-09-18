@@ -1,0 +1,49 @@
+
+{{ define "home-head"}}
+    首页 ｜ {{ .SiteName}}
+  {{ end }}
+
+
+  {{ define "home-h1"}}
+  {{ .SiteName}}
+    {{ end }}
+
+  {{ define "home-body" }}
+  <main>
+    <div class="bg-white p-8 shadow-xl z-10 relative mb-8 rounded">
+      <h2 class="text-xl mb-3 font-bold text-indigo-700">{{.SiteName}}</h2>
+     {{ .Content }}
+  
+    </div>
+  
+    <ins class="adsbygoogle bg-white shadow-xl relative mb-8 rounded overflow-hidden"
+       style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid"
+       data-ad-client="ca-pub-9994791825937062" data-ad-slot="2088683628"></ins>
+  
+  
+    <div class="flex flex-row flex-wrap">
+   
+      {{range .posts}}
+
+      <div class="md:w-1/2 md:pl-4 pb-8">
+        <div class="bg-white p-8 shadow-xl z-10 relative rounded h-full flex flex-col">
+          <a href="/blog/{{.ID}}">
+            <h2 class="text-xl mb-3 font-bold text-indigo-700 hover:underline">{{.Title}}</h2>
+          </a>
+          <span>{{slice .Created_at 0 10}}</span>
+          <div class="mb-4 flex-1">{{.Content|html }}
+          </div>
+          <div class="text-right">
+            <a href="/blog/{{.ID}}" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">阅读</a>
+          </div>
+        </div>
+      </div>
+
+      {{end}}
+      
+    
+  
+    </div>
+  </main>
+{{ end }}
+

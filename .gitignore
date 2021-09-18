@@ -1,0 +1,14 @@
+.idea
+.vscode
+.DS_Store
+go.sum
+iris-blog
+config.json
+cvm.sh
+# ignore iris project file
+.iris.yml
+# ignore logs folder
+logs/**
+target/**
+deploy/**
+

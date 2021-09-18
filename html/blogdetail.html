@@ -1,0 +1,57 @@
+
+
+{{ define "blogdetail-head"}}
+{{.Title}} | {{.SiteName}}
+{{ end }}
+
+{{ define "blogdetail-h1"}}
+{{.SiteName}} 
+{{end}}
+{{ define "blogdetail-nav"}}
+<a href="/"
+class="font-semibold text-indigo-700 block my-4 hover:underline">
+首页
+</a>
+<a href="/blog"
+class="font-semibold text-indigo-700 block my-4 hover:underline">
+博客
+</a>	
+<a href="/tag"
+class="font-semibold text-indigo-700 block my-4 hover:underline">
+标签
+</a>
+  {{end}}
+{{ define "blogdetail-body"}}
+<main>
+
+  <div class="bg-white p-8 shadow-xl z-10 relative mb-8 rounded">
+    <a href="/"
+            class="font-semibold text-indigo-700  my-4 hover:underline">
+            首页 /
+             </a>
+             <a href="/blog/"
+             class="font-semibold text-indigo-700 my-4 hover:underline">
+             博客 /
+              </a>
+              {{.Title}}
+
+  </div>
+    <div class="bg-white p-8 shadow-xl z-10 relative mb-8 rounded">
+      <h2 class="text-xl mb-3 font-bold text-indigo-700">{{ .Title}}</h2>
+      <span>{{slice .Created_at 0 10}}</span>
+    
+      <div  class="font-bold mt-4">
+        {{ .Content }}
+      </div>
+    </div>
+  
+    <ins class="adsbygoogle bg-white shadow-xl relative mb-8 rounded overflow-hidden"
+       style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid"
+       data-ad-client="ca-pub-9994791825937062" data-ad-slot="2088683628"></ins>
+  
+  
+  
+   
+  </main>
+{{ end }}
+

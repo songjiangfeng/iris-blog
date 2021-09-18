@@ -1,0 +1,44 @@
+
+{{ define "page-head"}}
+{{.Title}} | {{.SiteName}}
+ {{ end }}
+
+  {{ define "page-h1"}}
+  {{.SiteName}}
+  {{ end }}
+
+  {{ define "page-nav"}}
+  <a href="/"
+  class="font-semibold text-indigo-700 block my-4 hover:underline">
+  首页
+</a>
+<a href="/blog"
+class="font-semibold text-indigo-700 block my-4 hover:underline">
+博客
+</a>	
+<a href="/tag"
+class="font-semibold text-indigo-700 block my-4 hover:underline">
+标签
+</a>
+  {{end}}
+  {{ define "page-body" }}
+  <main>
+
+    <div class="bg-white p-8 shadow-xl z-10 relative mb-8 rounded">
+      <a href="/"
+              class="font-semibold text-indigo-700  my-4 hover:underline">
+              首页 /
+               </a>
+              
+                {{.Title}}
+  
+    </div>
+    <div class="bg-white p-8 shadow-xl z-10 relative mb-8 rounded">
+      <h2 class="text-xl mb-3 font-bold text-indigo-700">{{.Title}}</h2>
+     {{ .Content }}
+  
+    </div>
+  
+  </main>
+{{ end }}
+
