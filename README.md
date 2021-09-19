@@ -32,7 +32,9 @@ $ iris-cli ini 初始化 项目
 ## 运行项目  (http://localhost:8080)
 $ iris-cli run .
 
-
+## 文件管理
+$ mkdir uploads
+$ chmod 777 uploads
 ## 后台 http://localhost:8080/admin  （注意记得更改密码）
 用户名： admin
 密码： admin
