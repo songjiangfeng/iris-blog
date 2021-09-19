@@ -1,6 +1,6 @@
 #/bin/sh
 echo start ..
-cp -r html assets logs uploads config.json.default deploy/
+cp -r html assets logs uploads config.json.default ../deploy/
 go env -w CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 go build -o deploy/iris_blog_linux
 

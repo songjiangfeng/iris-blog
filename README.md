@@ -1,7 +1,17 @@
-# iris-blog
+# 配置 goproxy 
+
+$ go env -w GO111MODULE=on
+
+$ go env -w GOPROXY=https://goproxy.cn,direct
+
+# 克隆iris-blog
 
 
 $  git clone https://github.com/songjiangfeng/iris-blog.git
+
+## 安装依赖 
+
+$ go get
 
 ## 安装 Iris CLI 
 $ go get github.com/kataras/iris-cli
@@ -18,7 +28,8 @@ $ mysql -uroot -p iris_blog < iris_blog.sql
 
 $ cp config.json.default config.json
 
-## 运行  http://localhost:8080
+$ iris-cli ini 初始化 项目
+## 运行项目  (http://localhost:8080)
 $ iris-cli run .
 
 
