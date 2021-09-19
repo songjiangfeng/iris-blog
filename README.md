@@ -28,13 +28,16 @@ $ mysql -uroot -p iris_blog < iris_blog.sql
 
 $ cp config.json.default config.json
 
-$ iris-cli ini 初始化 项目
+## 初始化项目
+$ iris-cli init
+
 ## 运行项目  (http://localhost:8080)
 $ iris-cli run .
 
 ## 文件管理
 $ mkdir uploads
 $ chmod 777 uploads
+
 ## 后台 http://localhost:8080/admin  （注意记得更改密码）
 用户名： admin
 密码： admin
