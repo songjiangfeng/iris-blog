@@ -95,3 +95,24 @@ func (c *BlogController) GetBy(id int64) {
 		c.Ctx.View("blogdetail.html")
 	}
 }
+
+func (c *BlogController) GetHot() {
+	site, site_err := c.SiteService.GetSite()
+	menu, menu_err := c.MenuService.GetAll()
+	data, err := c.BlogService.GetHot()
+
+	if errors.Is(err, gorm.ErrRecordNotFound) || errors.Is(site_err, gorm.ErrRecordNotFound) || errors.Is(menu_err, gorm.ErrRecordNotFound) {
+		c.Ctx.JSON(iris.Map{"message": "记录不存在", "status": iris.StatusNotFound})
+	} else {
+
+		c.Ctx.ViewData("SiteName", site.SiteName)
+		c.Ctx.ViewData("SiteEmail", site.SiteEmail)
+		c.Ctx.ViewData("Slogan", site.Slogan)
+		c.Ctx.ViewData("Notice", site.Notice)
+
+		c.Ctx.ViewData("posts", data)
+		c.Ctx.ViewData("menu", menu)
+
+		c.Ctx.View("bloghot.html")
+	}
+}

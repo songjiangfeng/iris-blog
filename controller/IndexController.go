@@ -19,13 +19,10 @@ type IndexController struct {
 
 func (c *IndexController) Get() {
 
-	// site, site_err = c.s.GetSite()
 	site, site_err := c.SiteService.GetSite()
 
-	// data, err := c.m.Limit(8)
-	data, err := c.BlogService.Limit(8)
+	data, err := c.BlogService.GetLatest()
 
-	// menu, menu_err := c.menu.GetAll()
 	menu, menu_err := c.MenuService.GetAll()
 
 	if errors.Is(err, gorm.ErrRecordNotFound) || errors.Is(site_err, gorm.ErrRecordNotFound) || errors.Is(menu_err, gorm.ErrRecordNotFound) {

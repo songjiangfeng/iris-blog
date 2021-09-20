@@ -8,6 +8,6 @@ type MenuService struct {
 
 func (s *MenuService) GetAll() ([]models.Menu, error) {
 	var result []models.Menu
-	err := orm.Raw("select * from `iris_menus`").Scan(&result).Error
+	err := orm.Raw("select * from `iris_menus` order by weight,id asc").Scan(&result).Error
 	return result, err
 }

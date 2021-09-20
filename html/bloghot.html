@@ -1,16 +1,15 @@
 
-{{ define "home-head"}}
+{{ define "bloghot-head"}}
     首页 ｜ {{ .SiteName}}
   {{ end }}
 
 
-  {{ define "home-h1"}}
+  {{ define "bloghot-h1"}}
   {{ .SiteName}}
     {{ end }}
 
-  {{ define "home-body" }}
+  {{ define "bloghot-body" }}
   <main>
- 
   
     <div class="bg-white p-8 shadow-xl z-10 relative mb-8 rounded">
       <a href="/"
@@ -19,7 +18,7 @@
                </a>
                <a href="/blog/hot"
                class="font-semibold text-indigo-700 my-4 hover:underline">
-                最新博客
+                最热博客
                 </a>
     </div>
   

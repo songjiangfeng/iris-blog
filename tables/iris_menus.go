@@ -16,12 +16,14 @@ func GetIrisMenusTable(ctx *context.Context) table.Table {
 	info.AddField("Id", "id", db.Bigint).FieldSortable()
 	info.AddField("名称", "name", db.Varchar)
 	info.AddField("路径", "path", db.Varchar)
+	info.AddField("权重", "weight", db.Int)
 
 	info.SetTable("iris_menus").SetTitle("IrisMenus").SetDescription("IrisMenus")
 
 	formList := irisMenus.GetForm()
 	formList.AddField("名称", "name", db.Varchar, form.Text).FieldMust()
 	formList.AddField("路径", "path", db.Varchar, form.Text).FieldMust()
+	formList.AddField("权重", "weight", db.Varchar, form.Text).FieldMust()
 
 	formList.SetTable("iris_menus").SetTitle("IrisMenus").SetDescription("IrisMenus")
 
