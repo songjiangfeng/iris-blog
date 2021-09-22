@@ -7,4 +7,5 @@ type Tag struct {
 	PostTitle  string `json:"post_title"`
 	Content    string `json:"content"`
 	Created_at string `json:"created_at"`
+	Views      string `json:"views"`
 }

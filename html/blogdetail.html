@@ -38,7 +38,7 @@ class="font-semibold text-indigo-700 block my-4 hover:underline">
   </div>
     <div class="bg-white p-8 shadow-xl z-10 relative mb-8 rounded">
       <h2 class="text-xl mb-3 font-bold text-indigo-700">{{ .Title}}</h2>
-      <span>{{slice .Created_at 0 10}}</span>
+      <span class="mb-3 text-indigo-600 ">{{.Views}} 次阅读 ，发布于 : {{slice .Created_at 0 10}}</span>
     
       <div  class="font-bold mt-4">
         {{ .Content }}

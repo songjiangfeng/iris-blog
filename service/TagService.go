@@ -20,6 +20,6 @@ func (*TagService) GetTag(id int64) (models.Tag, error) {
 
 func (*TagService) GetTagPost(id int64) ([]models.Tag, error) {
 	var result []models.Tag
-	err := orm.Raw("select t.*, tp.post_id,p.title,p.content,p.created_at from `iris_tags` as t inner join `iris_tags_posts` as tp on t.id = tp.tag_id inner join `iris_posts` as p on tp.post_id = p.id where t.id = ? limit 10", id).Scan(&result).Error
+	err := orm.Raw("select t.*, tp.post_id,p.title,p.content,p.created_at,p.views from `iris_tags` as t inner join `iris_tags_posts` as tp on t.id = tp.tag_id inner join `iris_posts` as p on tp.post_id = p.id where t.id = ? limit 10", id).Scan(&result).Error
 	return result, err
 }

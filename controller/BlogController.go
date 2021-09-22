@@ -86,12 +86,15 @@ func (c *BlogController) GetBy(id int64) {
 		c.Ctx.ViewData("ID", data.ID)
 		c.Ctx.ViewData("Created_at", data.Created_at)
 		c.Ctx.ViewData("Content", template.HTML(data.Content))
+		c.Ctx.ViewData("Views", data.Views)
+
 		c.Ctx.ViewData("SiteName", site.SiteName)
 		c.Ctx.ViewData("SiteEmail", site.SiteEmail)
 		c.Ctx.ViewData("Slogan", site.Slogan)
 		c.Ctx.ViewData("Notice", site.Notice)
 		c.Ctx.ViewData("menu", menu)
 
+		c.BlogService.ViewPlus(id)
 		c.Ctx.View("blogdetail.html")
 	}
 }

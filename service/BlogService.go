@@ -1,6 +1,8 @@
 package service
 
-import "github.com/songjiangfeng/iris-blog/models"
+import (
+	"github.com/songjiangfeng/iris-blog/models"
+)
 
 type BlogService struct {
 	//依赖注入
@@ -31,4 +33,8 @@ func (s *BlogService) GetHot() ([]models.Post, error) {
 	var result []models.Post
 	err := orm.Raw("select * from `iris_posts` order by `views` desc limit ?", postnumber).Scan(&result).Error
 	return result, err
+}
+
+func (s *BlogService) ViewPlus(id int64) {
+	orm.Exec("update `iris_posts` set `views` = `views` + 1 where id = ?", id)
 }
