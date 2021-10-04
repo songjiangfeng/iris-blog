@@ -19,7 +19,19 @@ func (s *BlogService) GetPostByPage(page int64, pagesize int64) ([]models.Post, 
 
 func (s *BlogService) GetPost(id int64) (models.Post, error) {
 	var result models.Post
-	err := orm.Raw("select * from `iris_posts` where `id` = ?", id).Scan(&result).Error
+	err := orm.Raw("select * from `iris_posts` where `id` = ? limit 1", id).Scan(&result).Error
+	return result, err
+}
+
+func (s *BlogService) GetPrevPost(id int64) (models.Post, error) {
+	var result models.Post
+	err := orm.Raw("select * from `iris_posts` where `id` < ? order by `id` desc limit 1", id).Scan(&result).Error
+	return result, err
+}
+
+func (s *BlogService) GetNextPost(id int64) (models.Post, error) {
+	var result models.Post
+	err := orm.Raw("select * from `iris_posts` where `id` > ?  order by `id` asc limit 1", id).Scan(&result).Error
 	return result, err
 }
 

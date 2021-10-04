@@ -78,6 +78,8 @@ func (c *BlogController) GetBy(id int64) {
 	site, site_err := c.SiteService.GetSite()
 	menu, menu_err := c.MenuService.GetAll()
 	data, err := c.BlogService.GetPost(id)
+	prevpost, _ := c.BlogService.GetPrevPost(id)
+	nextpost, _ := c.BlogService.GetNextPost(id)
 
 	if errors.Is(err, gorm.ErrRecordNotFound) || errors.Is(site_err, gorm.ErrRecordNotFound) || errors.Is(menu_err, gorm.ErrRecordNotFound) {
 		c.Ctx.JSON(iris.Map{"message": "记录不存在", "status": iris.StatusNotFound})
@@ -94,7 +96,15 @@ func (c *BlogController) GetBy(id int64) {
 		c.Ctx.ViewData("Notice", site.Notice)
 		c.Ctx.ViewData("menu", menu)
 
+		//blog view count plus 1 each visit
 		c.BlogService.ViewPlus(id)
+
+		c.Ctx.ViewData("PrevPostId", prevpost.ID)
+		c.Ctx.ViewData("PrevPostTitle", prevpost.Title)
+
+		c.Ctx.ViewData("NextPostId", nextpost.ID)
+		c.Ctx.ViewData("NextPostTitle", nextpost.Title)
+
 		c.Ctx.View("blogdetail.html")
 	}
 }
