@@ -1,11 +1,11 @@
 
 
 {{ define "blogdetail-head"}}
-{{.Title}} | {{.SiteName}}
+{{.post.Title}} | {{.site.SiteName}}
 {{ end }}
 
 {{ define "blogdetail-h1"}}
-{{.SiteName}} 
+{{.site.SiteName}} 
 {{end}}
 {{ define "blogdetail-nav"}}
 <a href="/"
@@ -33,25 +33,25 @@ class="font-semibold text-indigo-700 block my-4 hover:underline">
              class="font-semibold text-indigo-700 my-4 hover:underline">
              博客 /
               </a>
-              {{.Title}}
+              {{.post.Title}}
 
   </div>
     <div class="bg-white p-8 shadow-xl z-10 relative mb-8 rounded">
-      <h2 class="text-xl mb-3 font-bold text-indigo-700">{{ .Title}}</h2>
-      <span class="mb-3 text-indigo-600 ">{{.Views}} 次阅读 ，发布于 : {{slice .Created_at 0 10}}</span>
-    
+      <h2 class="text-xl mb-3 font-bold text-indigo-700">{{ .post.Title}}</h2>
+      <span class="mb-3 text-indigo-600 ">{{.post.Views}} 次阅读 ，发布于 : {{ .post.CreatedAt | timeformat}}</span>
+
       <div  class="font-bold mt-4">
-        {{ .Content }}
+        {{ .Content}}
       </div>
      
     </div>
 
     <div class="nav-links">
-      {{ if .PrevPostId }}
-      <a href="/blog/{{ .PrevPostId }}" class="float-l bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"> {{ .PrevPostTitle }}</a>
+      {{ if .PrevPost.ID }}
+      <a href="/blog/{{ .PrevPost.ID }}" class="float-l bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"> {{ .PrevPost.Title }}</a>
       {{ end }}
-      {{ if .NextPostId }}
-      <a href="/blog/{{ .NextPostId }}" class=" float-r bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">{{ .NextPostTitle }}</a>
+      {{ if .NextPost.ID }}
+      <a href="/blog/{{ .NextPost.ID }}" class=" float-r bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">{{ .NextPost.Title }}</a>
       {{ end }}
     </div>
 

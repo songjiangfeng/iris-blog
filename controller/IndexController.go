@@ -1,10 +1,7 @@
 package controller
 
 import (
-	"errors"
-
 	"github.com/GoAdminGroup/go-admin/template"
-	"github.com/jinzhu/gorm"
 	"github.com/kataras/iris/v12"
 	"github.com/songjiangfeng/iris-blog/service"
 )
@@ -25,15 +22,11 @@ func (c *IndexController) Get() {
 
 	menu, menu_err := c.MenuService.GetAll()
 
-	if errors.Is(err, gorm.ErrRecordNotFound) || errors.Is(site_err, gorm.ErrRecordNotFound) || errors.Is(menu_err, gorm.ErrRecordNotFound) {
+	if err != nil || site_err != nil || menu_err != nil {
 		c.Ctx.JSON(iris.Map{"message": "记录不存在", "status": iris.StatusNotFound})
 	} else {
 
-		c.Ctx.ViewData("SiteName", site.SiteName)
-		c.Ctx.ViewData("SiteEmail", site.SiteEmail)
-		c.Ctx.ViewData("Slogan", site.Slogan)
-		c.Ctx.ViewData("Content", site.Slogan)
-		c.Ctx.ViewData("Notice", site.Notice)
+		c.Ctx.ViewData("site", site)
 
 		c.Ctx.ViewData("posts", data)
 		c.Ctx.ViewData("menu", menu)
@@ -57,16 +50,14 @@ func (c *IndexController) GetByWildcard(slug string) {
 	site, site_err := c.SiteService.GetSite()
 	menu, menu_err := c.MenuService.GetAll()
 
-	if errors.Is(err, gorm.ErrRecordNotFound) || errors.Is(site_err, gorm.ErrRecordNotFound) || errors.Is(menu_err, gorm.ErrRecordNotFound) {
+	if err != nil || site_err != nil || menu_err != nil {
 		c.Ctx.StopWithError(iris.StatusBadRequest, iris.ErrNotFound)
 	} else {
 		c.Ctx.ViewData("Title", page.Title)
 		c.Ctx.ViewData("Content", template.HTML(page.Content))
 
-		c.Ctx.ViewData("SiteName", site.SiteName)
-		c.Ctx.ViewData("SiteEmail", site.SiteEmail)
-		c.Ctx.ViewData("Slogan", site.Slogan)
-		c.Ctx.ViewData("Notice", site.Notice)
+		c.Ctx.ViewData("site", site)
+
 		c.Ctx.ViewData("menu", menu)
 
 		c.Ctx.View("page.html")

@@ -49,7 +49,7 @@
     style="transform: skewY(-5deg);  background: linear-gradient(90deg, #0d0e14, #7b7b83);">
     <div class="container mx-auto px-4 lg:px-8" style="transform: skewY(5deg);">
       <div class="flex flex-row justify-between">
-        <a href="/" class="text-lg font-bold hover:underline">{{.Slogan}}</a>
+        <a href="/" class="text-lg font-bold hover:underline">{{.site.Slogan.String}}</a>
         <button id="menu-button" class="lg:hidden" role="button" aria-label="Menu">
           <svg height="32px" id="Layer_1" style="enable-background:new 0 0 32 32; color: white;" version="1.1"
             viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +109,7 @@
   <footer class="text-center mb-8 mt-8">
     
     <a class="text-indigo-600 mx-2 inline-block" target="_blank" href="https://beian.miit.gov.cn">京ICP备18002262号-2</a>
-	<a class="text-indigo-600 mx-2 inline-block" target="_blank" href="mailto:{{.SiteEmail}}">联系我</a>
+	<a class="text-indigo-600 mx-2 inline-block" target="_blank" href="mailto:{{.site.SiteEmail}}">联系我</a>
     <a class="text-indigo-600 mx-2 inline-block" target="_blank" href="https://github.com/songjiangfeng/iris-blog">Powered By Iris Blog</a>
 
     
@@ -129,7 +129,8 @@
       <div class="flex-1">
        
         <span style="font-weight: 600; color: #cbd5e0">
-         {{.Notice}}
+         {{.site.Notice.String}}
+
         </span>
       </div>
 

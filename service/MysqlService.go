@@ -1,13 +1,18 @@
 package service
 
 import (
+	"context"
+	"database/sql"
+
 	"github.com/GoAdminGroup/go-admin/modules/db"
-	"github.com/jinzhu/gorm"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/songjiangfeng/iris-blog/models"
 )
 
 var (
-	orm *gorm.DB
-	err error
+	queries *models.Queries
+	ctx     context.Context
+	err     error
 )
 
 type MysqlService struct {
@@ -16,8 +21,10 @@ type MysqlService struct {
 
 func (s *MysqlService) Init(c db.Connection) {
 
-	orm, err = gorm.Open("mysql", c.GetDB("default"))
-	orm.LogMode(true)
+	db, err := sql.Open("mysql", "root:root@/iris_blog?charset=utf8&parseTime=True&loc=Local")
+	queries = models.New(db)
+	ctx = context.Background()
+
 	if err != nil {
 		panic("initialize orm failed")
 	}

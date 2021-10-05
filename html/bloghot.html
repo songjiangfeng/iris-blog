@@ -1,11 +1,11 @@
 
 {{ define "bloghot-head"}}
-    首页 ｜ {{ .SiteName}}
+    首页 ｜ {{ .site.SiteName}}
   {{ end }}
 
 
   {{ define "bloghot-h1"}}
-  {{ .SiteName}}
+  {{ .site.SiteName}}
     {{ end }}
 
   {{ define "bloghot-body" }}
@@ -32,7 +32,7 @@
           <a href="/blog/{{.ID}}">
             <h2 class="text-xl mb-3 font-bold text-indigo-700 hover:underline">{{.Title}}</h2>
           </a>
-          <span class="mb-3 text-indigo-600 ">{{.Views}} 次阅读 ，发布于 : {{slice .Created_at 0 10}}</span>
+          <span class="mb-3 text-indigo-600 ">{{.Views}} 次阅读 ，发布于 : {{ .CreatedAt | timeformat}}</span>
           <div class="mb-4 flex-1">{{.Content|html }}
           </div>
           <div class="text-right">

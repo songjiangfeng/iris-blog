@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"path/filepath"
+	"time"
 
 	_ "github.com/GoAdminGroup/go-admin/adapter/iris"
 	"github.com/GoAdminGroup/go-admin/engine"
@@ -72,6 +73,11 @@ func startServer() {
 		s = substring.SubstringEnd(s, 50) + "..."
 
 		return s
+	})
+
+	tmpl.AddFunc("timeformat", func(t time.Time) string {
+		nt := t.Format(time.RFC3339)
+		return nt[0:10]
 	})
 
 	mvc.Configure(app.Party("/"), func(app *mvc.Application) {

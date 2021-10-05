@@ -1,10 +1,7 @@
 package controller
 
 import (
-	"errors"
-
 	"github.com/GoAdminGroup/go-admin/template"
-	"github.com/jinzhu/gorm"
 	"github.com/kataras/iris/v12"
 	"github.com/songjiangfeng/iris-blog/service"
 )
@@ -27,14 +24,11 @@ func (c *BlogController) Get() {
 	pageNext := page + 1
 	pagePrev := page - 1
 
-	if errors.Is(err, gorm.ErrRecordNotFound) || errors.Is(site_err, gorm.ErrRecordNotFound) || errors.Is(menu_err, gorm.ErrRecordNotFound) {
+	if err != nil || site_err != nil || menu_err != nil {
 		c.Ctx.JSON(iris.Map{"message": "记录不存在", "status": iris.StatusNotFound})
 	} else {
 
-		c.Ctx.ViewData("SiteName", site.SiteName)
-		c.Ctx.ViewData("SiteEmail", site.SiteEmail)
-		c.Ctx.ViewData("Slogan", site.Slogan)
-		c.Ctx.ViewData("Notice", site.Notice)
+		c.Ctx.ViewData("site", site)
 
 		c.Ctx.ViewData("posts", data)
 		c.Ctx.ViewData("menu", menu)
@@ -53,14 +47,11 @@ func (c *BlogController) GetPageBy(page int64) {
 	pageNext := page + 1
 	pagePrev := page - 1
 
-	if errors.Is(err, gorm.ErrRecordNotFound) || errors.Is(site_err, gorm.ErrRecordNotFound) || errors.Is(menu_err, gorm.ErrRecordNotFound) {
+	if err != nil || site_err != nil || menu_err != nil {
 		c.Ctx.StopWithError(iris.StatusBadRequest, iris.ErrNotFound)
 	} else {
 
-		c.Ctx.ViewData("SiteName", site.SiteName)
-		c.Ctx.ViewData("SiteEmail", site.SiteEmail)
-		c.Ctx.ViewData("Slogan", site.Slogan)
-		c.Ctx.ViewData("Notice", site.Notice)
+		c.Ctx.ViewData("site", site)
 
 		c.Ctx.ViewData("posts", data)
 		c.Ctx.ViewData("menu", menu)
@@ -81,29 +72,23 @@ func (c *BlogController) GetBy(id int64) {
 	prevpost, _ := c.BlogService.GetPrevPost(id)
 	nextpost, _ := c.BlogService.GetNextPost(id)
 
-	if errors.Is(err, gorm.ErrRecordNotFound) || errors.Is(site_err, gorm.ErrRecordNotFound) || errors.Is(menu_err, gorm.ErrRecordNotFound) {
+	if err != nil || site_err != nil || menu_err != nil {
 		c.Ctx.JSON(iris.Map{"message": "记录不存在", "status": iris.StatusNotFound})
 	} else {
-		c.Ctx.ViewData("Title", data.Title)
-		c.Ctx.ViewData("ID", data.ID)
-		c.Ctx.ViewData("Created_at", data.Created_at)
-		c.Ctx.ViewData("Content", template.HTML(data.Content))
-		c.Ctx.ViewData("Views", data.Views)
 
-		c.Ctx.ViewData("SiteName", site.SiteName)
-		c.Ctx.ViewData("SiteEmail", site.SiteEmail)
-		c.Ctx.ViewData("Slogan", site.Slogan)
-		c.Ctx.ViewData("Notice", site.Notice)
+		c.Ctx.ViewData("Content", template.HTML(data.Content))
+		c.Ctx.ViewData("post", data)
+
+		c.Ctx.ViewData("site", site)
+
 		c.Ctx.ViewData("menu", menu)
 
 		//blog view count plus 1 each visit
 		c.BlogService.ViewPlus(id)
 
-		c.Ctx.ViewData("PrevPostId", prevpost.ID)
-		c.Ctx.ViewData("PrevPostTitle", prevpost.Title)
+		c.Ctx.ViewData("PrevPost", prevpost)
 
-		c.Ctx.ViewData("NextPostId", nextpost.ID)
-		c.Ctx.ViewData("NextPostTitle", nextpost.Title)
+		c.Ctx.ViewData("NextPost", nextpost)
 
 		c.Ctx.View("blogdetail.html")
 	}
@@ -114,14 +99,11 @@ func (c *BlogController) GetHot() {
 	menu, menu_err := c.MenuService.GetAll()
 	data, err := c.BlogService.GetHot()
 
-	if errors.Is(err, gorm.ErrRecordNotFound) || errors.Is(site_err, gorm.ErrRecordNotFound) || errors.Is(menu_err, gorm.ErrRecordNotFound) {
+	if err != nil || site_err != nil || menu_err != nil {
 		c.Ctx.JSON(iris.Map{"message": "记录不存在", "status": iris.StatusNotFound})
 	} else {
 
-		c.Ctx.ViewData("SiteName", site.SiteName)
-		c.Ctx.ViewData("SiteEmail", site.SiteEmail)
-		c.Ctx.ViewData("Slogan", site.Slogan)
-		c.Ctx.ViewData("Notice", site.Notice)
+		c.Ctx.ViewData("site", site)
 
 		c.Ctx.ViewData("posts", data)
 		c.Ctx.ViewData("menu", menu)
