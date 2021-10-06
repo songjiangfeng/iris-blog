@@ -18,15 +18,15 @@ require (
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/h2non/filetype v1.1.1
 	github.com/jinzhu/gorm v1.9.15
-	github.com/jinzhu/now v1.1.2 // indirect
 	github.com/k0kubun/colorstring v0.0.0-20150214042306-9440f1994b88 // indirect
 	github.com/k3a/html2text v1.0.8
 	github.com/kataras/iris/v12 v12.2.0-alpha2.0.20210907152838-01b459fa5048
-	github.com/kyleconroy/sqlc v1.10.0 // indirect
+	github.com/lib/pq v1.10.3 // indirect
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/nats-io/nats-server/v2 v2.5.0 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/schicho/substring v1.0.1
 	github.com/valyala/fasthttp v1.30.0 // indirect
 	github.com/yudai/pp v2.0.1+incompatible // indirect
