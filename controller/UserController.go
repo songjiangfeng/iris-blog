@@ -5,11 +5,14 @@ import (
 	"github.com/songjiangfeng/iris-blog/service"
 )
 
+// UserController
 type UserController struct {
 	Ctx         iris.Context
 	UserService service.UserService
 }
 
+// Get
+//  @receiver c
 func (c *UserController) Get() {
 	data, err := c.UserService.GetAll()
 

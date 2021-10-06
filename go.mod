@@ -32,7 +32,7 @@ require (
 	github.com/yudai/pp v2.0.1+incompatible // indirect
 	go.uber.org/zap v1.17.0 // indirect
 	golang.org/x/term v0.0.0-20210503060354-a79de5458b56 // indirect
-	golang.org/x/tools v0.1.2
+	golang.org/x/tools v0.1.7
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

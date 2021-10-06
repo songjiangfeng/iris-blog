@@ -6,6 +6,7 @@ import (
 	"github.com/songjiangfeng/iris-blog/service"
 )
 
+// IndexController
 type IndexController struct {
 	Ctx         iris.Context
 	BlogService service.BlogService
@@ -14,6 +15,8 @@ type IndexController struct {
 	MenuService service.MenuService
 }
 
+// Get
+//  @receiver c
 func (c *IndexController) Get() {
 
 	site, site_err := c.SiteService.GetSite()
@@ -35,6 +38,8 @@ func (c *IndexController) Get() {
 
 }
 
+// GetLogin
+//  @receiver c
 func (c *IndexController) GetLogin() {
 
 	const content = `login page`
@@ -44,6 +49,9 @@ func (c *IndexController) GetLogin() {
 	c.Ctx.View("home.html")
 }
 
+// GetByWildcard
+//  @receiver c
+//  @param slug
 func (c *IndexController) GetByWildcard(slug string) {
 
 	page, err := c.PageService.GetPage(slug)

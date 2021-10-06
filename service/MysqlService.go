@@ -15,10 +15,14 @@ var (
 	err     error
 )
 
+// MysqlService
 type MysqlService struct {
 	//依赖注入
 }
 
+// Init
+//  @receiver s
+//  @param c
 func (s *MysqlService) Init(c db.Connection) {
 
 	db, err := sql.Open("mysql", "root:root@/iris_blog?charset=utf8&parseTime=True&loc=Local")

@@ -5,6 +5,7 @@ import (
 	"github.com/songjiangfeng/iris-blog/service"
 )
 
+// TagController
 type TagController struct {
 	Ctx         iris.Context
 	SiteService service.SiteService
@@ -13,6 +14,8 @@ type TagController struct {
 	BlogService service.BlogService
 }
 
+// Get
+//  @receiver c
 func (c *TagController) Get() {
 
 	data, err := c.TagService.GetAll()
@@ -32,6 +35,9 @@ func (c *TagController) Get() {
 	}
 }
 
+// GetBy
+//  @receiver c
+//  @param id
 func (c *TagController) GetBy(id int64) {
 
 	tag, tag_err := c.TagService.GetTag(id)

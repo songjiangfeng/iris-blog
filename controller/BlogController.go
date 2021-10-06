@@ -6,6 +6,7 @@ import (
 	"github.com/songjiangfeng/iris-blog/service"
 )
 
+// BlogController
 type BlogController struct {
 	Ctx         iris.Context
 	BlogService service.BlogService
@@ -14,8 +15,11 @@ type BlogController struct {
 	MenuService service.MenuService
 }
 
+// const
 const pagesize = 10
 
+// Get
+//  @receiver c
 func (c *BlogController) Get() {
 	page := c.Ctx.URLParamInt64Default("page", 1)
 	site, site_err := c.SiteService.GetSite()
@@ -39,6 +43,9 @@ func (c *BlogController) Get() {
 	}
 }
 
+// GetPageBy
+//  @receiver c
+//  @param page
 func (c *BlogController) GetPageBy(page int64) {
 
 	site, site_err := c.SiteService.GetSite()
@@ -64,6 +71,9 @@ func (c *BlogController) GetPageBy(page int64) {
 	}
 }
 
+// GetBy
+//  @receiver c
+//  @param id
 func (c *BlogController) GetBy(id int64) {
 
 	site, site_err := c.SiteService.GetSite()
@@ -94,6 +104,8 @@ func (c *BlogController) GetBy(id int64) {
 	}
 }
 
+// GetHot
+//  @receiver c
 func (c *BlogController) GetHot() {
 	site, site_err := c.SiteService.GetSite()
 	menu, menu_err := c.MenuService.GetAll()
