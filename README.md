@@ -34,8 +34,9 @@ $ iris-cli init
 ## 运行项目  (http://localhost:8080)
 $ iris-cli run .
 
-## 文件管理
+## 创建文件上传目录以及设置文件权限
 $ mkdir uploads
+
 $ chmod 777 uploads
 
 ## 后台 http://localhost:8080/admin  （注意记得更改密码）
