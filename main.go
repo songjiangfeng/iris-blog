@@ -123,5 +123,5 @@ func startServer() {
 	// eng.HTML("GET", "/admin/table", pages.GetTableContent)
 
 	// http://localhost:8080
-	app.Listen(":8080")
+	app.Listen(":80")
 }
