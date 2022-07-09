@@ -26,7 +26,6 @@ import (
 	"github.com/songjiangfeng/iris-blog/tables"
 )
 
-var g errgroup.Group
 func main() {
 	startHttpsServer()
 }
@@ -127,6 +126,5 @@ func startHttpsServer() {
 
 	// http://localhost:8080
 	
-	fmt.Printf(sslcert,sslkey)
 	app.Run(iris.TLS(":443", sslcert, sslkey))
 }
