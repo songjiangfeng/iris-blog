@@ -11,4 +11,5 @@ cvm.sh
 logs/**
 target/**
 deploy/**
-
+ssl/
+uploads/

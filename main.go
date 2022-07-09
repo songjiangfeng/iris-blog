@@ -26,11 +26,12 @@ import (
 	"github.com/songjiangfeng/iris-blog/tables"
 )
 
+var g errgroup.Group
 func main() {
-	startServer()
+	startHttpsServer()
 }
 
-func startServer() {
+func startHttpsServer() {
 	app := iris.New()
 
 	eng := engine.Default()
@@ -42,6 +43,8 @@ func startServer() {
 		panic(err)
 	}
 
+	sslcert :="/root/work/iris-blog/ssl/go365.tech.crt"
+	sslkey :="/root/work/iris-blog/ssl/go365.tech.key"
 	config := "./config.json"
 	if err := eng.AddConfigFromJSON(config).
 		AddPlugins(filemanager.
@@ -123,5 +126,7 @@ func startServer() {
 	// eng.HTML("GET", "/admin/table", pages.GetTableContent)
 
 	// http://localhost:8080
-	app.Listen(":80")
+	
+	fmt.Printf(sslcert,sslkey)
+	app.Run(iris.TLS(":443", sslcert, sslkey))
 }
