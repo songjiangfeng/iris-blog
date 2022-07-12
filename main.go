@@ -42,8 +42,8 @@ func startHttpsServer() {
 		panic(err)
 	}
 
-	sslcert :="/root/work/iris-blog/ssl/go365.tech.crt"
-	sslkey :="/root/work/iris-blog/ssl/go365.tech.key"
+	sslcert :="./ssl/go365.tech.crt"
+	sslkey :="./ssl/go365.tech.key"
 	config := "./config.json"
 	if err := eng.AddConfigFromJSON(config).
 		AddPlugins(filemanager.
