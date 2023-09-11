@@ -27,6 +27,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/nats-io/nats-server/v2 v2.5.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/redis/go-redis/v9 v9.1.0
 	github.com/schicho/substring v1.0.1
 	github.com/valyala/fasthttp v1.30.0 // indirect
 	github.com/yudai/pp v2.0.1+incompatible // indirect

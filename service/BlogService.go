@@ -1,14 +1,18 @@
 package service
 
 import (
+	"encoding/json"
 	"log"
+	"strconv"
 
+	"github.com/songjiangfeng/iris-blog/cache"
 	"github.com/songjiangfeng/iris-blog/models"
 )
 
 // BlogService
 type BlogService struct {
 	//依赖注入
+	cache cache.RedisCache
 }
 
 // const
@@ -21,10 +25,20 @@ const postnumber = 10
 //  @return error
 
 func (s *BlogService) GetPost(id int64) (models.IrisPost, error) {
-	result, err := queries.GetPost(ctx, id)
-	if err != nil {
-		log.Println(err)
+
+	key := "post" + strconv.FormatInt(id, 16)
+	keycheck := s.cache.RedisKeyExists(key)
+	var result models.IrisPost
+
+	if !keycheck {
+		result, err = queries.GetPost(ctx, id)
+		if err != nil {
+			log.Println(err)
+		}
+		err = s.cache.RedisSetCache(key, result)
 	}
+	data, _ := s.cache.RedisGetCache(key)
+	err = json.Unmarshal([]byte(data), &result)
 	// log.Println(result)
 	return result, err
 }
