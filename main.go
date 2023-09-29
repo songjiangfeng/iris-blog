@@ -42,8 +42,8 @@ func startHttpsServer() {
 		panic(err)
 	}
 
-	sslcert :="./ssl/go365.tech.crt"
-	sslkey :="./ssl/go365.tech.key"
+	//sslcert :="./ssl/go365.tech.crt"
+	//sslkey :="./ssl/go365.tech.key"
 	config := "./config.json"
 	if err := eng.AddConfigFromJSON(config).
 		AddPlugins(filemanager.
@@ -125,6 +125,7 @@ func startHttpsServer() {
 	// eng.HTML("GET", "/admin/table", pages.GetTableContent)
 
 	// http://localhost:8080
-	
-	app.Run(iris.TLS(":443", sslcert, sslkey))
+
+	//app.Run(iris.TLS(":443", sslcert, sslkey))
+	app.Listen(":80")
 }
