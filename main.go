@@ -16,7 +16,9 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/k3a/html2text"
 	"github.com/kataras/iris/v12"
+	"github.com/kataras/iris/v12/middleware/rewrite"
 	"github.com/kataras/iris/v12/mvc"
+
 	"github.com/schicho/substring"
 	"github.com/songjiangfeng/iris-blog/controller"
 	"github.com/songjiangfeng/iris-blog/environment"
@@ -33,6 +35,8 @@ func main() {
 func startHttpsServer() {
 	app := iris.New()
 
+	redirects := rewrite.Load("redirects.yml")
+	app.WrapRouter(redirects)
 	eng := engine.Default()
 
 	template.AddComp(chartjs.NewChart())
