@@ -17,6 +17,9 @@ $ go get
 $ go get github.com/kataras/iris-cli
 
 
+## 启动 redis server
+
+$ redis-server 
 ## 创建数据库
 
 $ mysqladmin create iris_blog
