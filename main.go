@@ -26,24 +26,27 @@ import (
 	"github.com/songjiangfeng/iris-blog/pages"
 	"github.com/songjiangfeng/iris-blog/service"
 	"github.com/songjiangfeng/iris-blog/tables"
+	"github.com/songjiangfeng/iris-blog/assets"
+
 )
 
-//go:generate go-bindata  -prefix "static" -o=assets.go -pkg=assets  ./static/...
+//go:generate go-bindata -fs  -prefix "static" -o=./assets/assets.go -pkg=assets   ./static/...
 
 func main() {
 	app := newApp()
 	//startHttpsServer()
 	//let's encrypt
-	//app.Run(iris.AutoTLS(":443", "www.go365.tech go365.tech", "admin@admin.com"))
-	app.Listen(":8888")
+	app.Run(iris.AutoTLS(":443", "www.go365.tech go365.tech", "admin@admin.com"))
+	//app.Listen(":8888")
 }
 
 func newApp() *iris.Application {
 	app := iris.New()
 
 	app.Logger().SetLevel("debug")
-
-	redirects := rewrite.Load("redirects.yml")
+	
+	redirectFile, _:= assets.Asset("static/redirects.yml")
+	redirects := rewrite.Load(redirectFile)
 	app.WrapRouter(redirects)
 	eng := engine.Default()
 
@@ -54,7 +57,7 @@ func newApp() *iris.Application {
 		panic(err)
 	}
 
-	config := "./config.json"
+	config, _:=  assets.Asset("static/config.json")
 	if err := eng.AddConfigFromJSON(config).
 		AddPlugins(filemanager.
 			NewFileManager(filepath.Join(dir, "uploads")),
@@ -67,7 +70,8 @@ func newApp() *iris.Application {
 	service := service.MysqlService{}
 	service.Init(eng.MysqlConnection())
 
-	app.HandleDir("/static", AssetFile())
+	
+	app.HandleDir("/static", assets.AssetFile())
 
 	//public page
 	tmpl := iris.HTML("./html", ".html").Reload(true)
