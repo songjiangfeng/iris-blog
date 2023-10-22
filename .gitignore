@@ -3,7 +3,6 @@
 .DS_Store
 go.sum
 iris-blog
-config.json
 cvm.sh
 # ignore iris project file
 .iris.yml
@@ -13,3 +12,4 @@ target/**
 deploy/**
 app/uploads/**
 app/config.json
+letscache

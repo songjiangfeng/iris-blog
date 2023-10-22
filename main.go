@@ -33,7 +33,6 @@ import (
 
 func main() {
 	app := newApp()
-	//startHttpsServer()
 	//let's encrypt
 	app.Run(iris.AutoTLS(":443", "www.go365.tech go365.tech", "admin@admin.com"))
 	//app.Listen(":8888")
