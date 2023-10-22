@@ -28,12 +28,20 @@ import (
 	"github.com/songjiangfeng/iris-blog/tables"
 )
 
+//go:generate go-bindata  -prefix "static" -o=assets.go -pkg=assets  ./static/...
+
 func main() {
-	startHttpsServer()
+	app := newApp()
+	//startHttpsServer()
+	//let's encrypt
+	//app.Run(iris.AutoTLS(":443", "www.go365.tech go365.tech", "admin@admin.com"))
+	app.Listen(":8888")
 }
 
-func startHttpsServer() {
+func newApp() *iris.Application {
 	app := iris.New()
+
+	app.Logger().SetLevel("debug")
 
 	redirects := rewrite.Load("redirects.yml")
 	app.WrapRouter(redirects)
@@ -59,13 +67,7 @@ func startHttpsServer() {
 	service := service.MysqlService{}
 	service.Init(eng.MysqlConnection())
 
-	app.HandleDir("/uploads", iris.Dir("./uploads"), iris.DirOptions{
-		Compress: true,
-	})
-
-	app.HandleDir("/assets", iris.Dir("./assets"), iris.DirOptions{
-		Compress: true,
-	})
+	app.HandleDir("/static", AssetFile())
 
 	//public page
 	tmpl := iris.HTML("./html", ".html").Reload(true)
@@ -125,8 +127,5 @@ func startHttpsServer() {
 	eng.HTML("GET", "/admin", pages.DashboardPage)
 	// eng.HTML("GET", "/admin/form", pages.GetFormContent)
 	// eng.HTML("GET", "/admin/table", pages.GetTableContent)
-
-	//let's encrypt
-	app.Run(iris.AutoTLS(":443", "www.go365.tech go365.tech", "admin@admin.com"))
-	//app.Listen(":80")
+	return app
 }
