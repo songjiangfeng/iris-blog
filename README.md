@@ -42,7 +42,10 @@ $ mkdir uploads
 
 $ chmod 777 uploads
 
-## 后台 http://localhost:8080/admin  （注意记得更改密码）
+## 后台 http://localhost:8888/admin  （注意记得更改密码）
+//app.Run(iris.AutoTLS(":443", "www.go365.tech go365.tech", "admin@admin.com"))
+app.Listen(":8888")
+
 用户名： admin
 密码： admin
 
