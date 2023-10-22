@@ -17,7 +17,7 @@
   },
   "store": {
     "path": "./app/uploads",
-    "prefix": "uploads"
+    "prefix": "files"
   },
   "access_log": "./app/logs/access.log",
   "error_log": "./app/logs/error.log",

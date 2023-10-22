@@ -54,19 +54,20 @@ func newApp() *iris.Application {
 		panic(err)
 	}
 
+	uploadsDir := "app/uploads"
 	if err := eng.AddConfigFromJSON("app/config.json").
 		AddPlugins(filemanager.
-			NewFileManager(filepath.Join(dir, "uploads")),
+			NewFileManager(filepath.Join(dir, uploadsDir)),
 		).
 		AddGenerators(tables.Generators).
 		Use(app); err != nil {
 		panic(err)
 	}
-
 	service := service.MysqlService{}
 	service.Init(eng.MysqlConnection())
 
 	app.HandleDir("/static", assets.AssetFile())
+	app.HandleDir("/files", iris.Dir("./" + uploadsDir))
 
 	//public page
 	tmpl := iris.HTML("./app/theme", ".html").Reload(true)
