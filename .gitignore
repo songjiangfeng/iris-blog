@@ -8,8 +8,8 @@ cvm.sh
 # ignore iris project file
 .iris.yml
 # ignore logs folder
-logs/**
+app/logs/**
 target/**
 deploy/**
-ssl/
-uploads/
+app/uploads/**
+app/config.json

@@ -20,14 +20,13 @@ import (
 	"github.com/kataras/iris/v12/mvc"
 
 	"github.com/schicho/substring"
+	"github.com/songjiangfeng/iris-blog/assets"
 	"github.com/songjiangfeng/iris-blog/controller"
 	"github.com/songjiangfeng/iris-blog/environment"
 	"github.com/songjiangfeng/iris-blog/filemanager"
 	"github.com/songjiangfeng/iris-blog/pages"
 	"github.com/songjiangfeng/iris-blog/service"
 	"github.com/songjiangfeng/iris-blog/tables"
-	"github.com/songjiangfeng/iris-blog/assets"
-
 )
 
 //go:generate go-bindata -fs  -prefix "static" -o=./assets/assets.go -pkg=assets   ./static/...
@@ -44,9 +43,8 @@ func newApp() *iris.Application {
 	app := iris.New()
 
 	app.Logger().SetLevel("debug")
-	
-	redirectFile, _:= assets.Asset("static/redirects.yml")
-	redirects := rewrite.Load(redirectFile)
+
+	redirects := rewrite.Load("app/redirects.yml")
 	app.WrapRouter(redirects)
 	eng := engine.Default()
 
@@ -57,8 +55,7 @@ func newApp() *iris.Application {
 		panic(err)
 	}
 
-	config, _:=  assets.Asset("static/config.json")
-	if err := eng.AddConfigFromJSON(config).
+	if err := eng.AddConfigFromJSON("app/config.json").
 		AddPlugins(filemanager.
 			NewFileManager(filepath.Join(dir, "uploads")),
 		).
@@ -70,11 +67,10 @@ func newApp() *iris.Application {
 	service := service.MysqlService{}
 	service.Init(eng.MysqlConnection())
 
-	
 	app.HandleDir("/static", assets.AssetFile())
 
 	//public page
-	tmpl := iris.HTML("./html", ".html").Reload(true)
+	tmpl := iris.HTML("./app/theme", ".html").Reload(true)
 
 	app.RegisterView(tmpl.Layout("layout.html"))
 

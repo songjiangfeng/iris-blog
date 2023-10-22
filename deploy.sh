@@ -6,9 +6,7 @@ echo start ..
 
 deploy_path=../deploy
 mkdir -p $deploy_path
-cp -r html assets logs uploads iris_blog.sql config.json.default $deploy_path
-
-cp $deploy_path/config.json.default  $deploy_path/config.json
+cp -r app  iris_blog.sql  $deploy_path
 
 
 go env -w CGO_ENABLED=0 GOOS=linux GOARCH=amd64
