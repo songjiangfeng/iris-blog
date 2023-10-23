@@ -34,26 +34,27 @@ import (
 
 var (
 	configPath = "app/config.json"
+	redirectPath = "app/redirects.yml"
 )
 
 func main() {
 
 	f := config.ReadFromJson(configPath)
 	app := newApp(f)
-	//let's encrypt
 	env := f.Extra["env"]
 	switch env {
 	case config.EnvLocal:
 		app.Logger().SetLevel("debug")
 		app.Listen(":8888")
 	case config.EnvProd:
+		//let's encrypt
 		app.Run(iris.AutoTLS(":443", "www.go365.tech go365.tech", "admin@admin.com"))
 	}
 }
 
 func newApp(f config.Config) *iris.Application {
 	app := iris.New()
-	redirects := rewrite.Load("app/redirects.yml")
+	redirects := rewrite.Load(redirectPath)
 	app.WrapRouter(redirects)
 	eng := engine.Default()
 
