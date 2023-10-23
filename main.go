@@ -7,6 +7,7 @@ import (
 
 	_ "github.com/GoAdminGroup/go-admin/adapter/iris"
 	"github.com/GoAdminGroup/go-admin/engine"
+	"github.com/GoAdminGroup/go-admin/modules/config"
 	_ "github.com/GoAdminGroup/go-admin/modules/db/drivers/mysql"
 	"github.com/GoAdminGroup/go-admin/template"
 	"github.com/GoAdminGroup/go-admin/template/chartjs"
@@ -31,31 +32,38 @@ import (
 
 //go:generate go-bindata -fs  -prefix "static" -o=./assets/assets.go -pkg=assets   ./static/...
 
+var (
+	configPath = "app/config.json"
+)
+
 func main() {
-	app := newApp()
+
+	f := config.ReadFromJson(configPath)
+	app := newApp(f)
 	//let's encrypt
-	app.Run(iris.AutoTLS(":443", "www.go365.tech go365.tech", "admin@admin.com"))
-	//app.Listen(":8888")
+	env := f.Extra["env"]
+	switch env {
+	case config.EnvLocal:
+		app.Logger().SetLevel("debug")
+		app.Listen(":8888")
+	case config.EnvProd:
+		app.Run(iris.AutoTLS(":443", "www.go365.tech go365.tech", "admin@admin.com"))
+	}
 }
 
-func newApp() *iris.Application {
+func newApp(f config.Config) *iris.Application {
 	app := iris.New()
-
-	app.Logger().SetLevel("debug")
-
 	redirects := rewrite.Load("app/redirects.yml")
 	app.WrapRouter(redirects)
 	eng := engine.Default()
 
 	template.AddComp(chartjs.NewChart())
 
-	dir, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
+	uploadsDir := f.Store.Path
+	siteTheme := f.Extra["site_theme"]
+	dir, _ := os.Getwd()
 
-	uploadsDir := "app/uploads"
-	if err := eng.AddConfigFromJSON("app/config.json").
+	if err := eng.AddConfigFromJSON(configPath).
 		AddPlugins(filemanager.
 			NewFileManager(filepath.Join(dir, uploadsDir)),
 		).
@@ -66,11 +74,13 @@ func newApp() *iris.Application {
 	service := service.MysqlService{}
 	service.Init(eng.MysqlConnection())
 
+	// asset & files
 	app.HandleDir("/static", assets.AssetFile())
-	app.HandleDir("/files", iris.Dir("./" + uploadsDir))
+	app.HandleDir("/files", iris.Dir(uploadsDir))
 
-	//public page
-	tmpl := iris.HTML("./app/theme", ".html").Reload(true)
+	//default theme
+
+	tmpl := iris.HTML(siteTheme, ".html").Reload(true)
 
 	app.RegisterView(tmpl.Layout("layout.html"))
 

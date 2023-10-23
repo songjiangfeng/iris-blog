@@ -19,6 +19,10 @@
     "path": "./app/uploads",
     "prefix": "files"
   },
+  "extra": {
+    "site_theme": "./app/theme/default",
+    "env": "local"
+  },
   "access_log": "./app/logs/access.log",
   "error_log": "./app/logs/error.log",
   "info_log": "./app/logs/info.log",
