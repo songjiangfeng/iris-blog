@@ -42,6 +42,7 @@ func main() {
 	f := config.ReadFromJson(configPath)
 	app := newApp(f)
 	env := f.Extra["env"]
+	domain := f.Extra["domain"].(string)
 
 	switch env {
 	case config.EnvLocal:
@@ -49,7 +50,7 @@ func main() {
 		app.Listen(":8888")
 	case config.EnvProd:
 		//let's encrypt
-		app.Run(iris.AutoTLS(":443", "www.go365.tech go365.tech", "admin@admin.com"))
+		app.Run(iris.AutoTLS(":443", domain, "admin@admin.com"))
 	}
 }
 
