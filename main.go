@@ -13,6 +13,7 @@ import (
 	"github.com/GoAdminGroup/go-admin/template/chartjs"
 	_ "github.com/GoAdminGroup/themes/adminlte"
 	_ "github.com/GoAdminGroup/themes/sword"
+	"github.com/gookit/goutil/dump"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/k3a/html2text"
@@ -42,6 +43,7 @@ func main() {
 	f := config.ReadFromJson(configPath)
 	app := newApp(f)
 	env := f.Extra["env"]
+	dump.P(f.Extra["domain"])
 	switch env {
 	case config.EnvLocal:
 		app.Logger().SetLevel("debug")
