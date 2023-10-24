@@ -20,7 +20,7 @@
     "prefix": "files"
   },
   "extra": {
-     "domain":"www.go365.tech go365.tech",
+    "domain":"www.go365.tech go365.tech",
     "site_theme": "./app/theme/default",
     "env": "local"
   },
