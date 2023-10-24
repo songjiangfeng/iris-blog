@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/GoAdminGroup/go-admin/template"
 	"github.com/kataras/iris/v12"
+	"github.com/songjiangfeng/iris-blog/ip"
 	"github.com/songjiangfeng/iris-blog/service"
 )
 
@@ -25,12 +26,13 @@ func (c *IndexController) Get() {
 
 	menu, menu_err := c.MenuService.GetAll()
 
+
 	if err != nil || site_err != nil || menu_err != nil {
 		c.Ctx.JSON(iris.Map{"message": "记录不存在", "status": iris.StatusNotFound})
 	} else {
-
+		
 		c.Ctx.ViewData("site", site)
-
+		c.Ctx.ViewData("ip",  ip.IP())
 		c.Ctx.ViewData("posts", data)
 		c.Ctx.ViewData("menu", menu)
 		c.Ctx.View("home.html")
@@ -46,6 +48,7 @@ func (c *IndexController) GetLogin() {
 
 	c.Ctx.ViewData("title", "Home Page")
 	c.Ctx.ViewData("content", template.HTML(content))
+	c.Ctx.ViewData("ip",  ip.IP())
 	c.Ctx.View("home.html")
 }
 
@@ -67,7 +70,7 @@ func (c *IndexController) GetByWildcard(slug string) {
 		c.Ctx.ViewData("site", site)
 
 		c.Ctx.ViewData("menu", menu)
-
+		c.Ctx.ViewData("ip",  ip.IP())
 		c.Ctx.View("page.html")
 	}
 }

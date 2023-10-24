@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/kataras/iris/v12"
+	"github.com/songjiangfeng/iris-blog/ip"
 	"github.com/songjiangfeng/iris-blog/service"
 )
 
@@ -30,6 +31,7 @@ func (c *TagController) Get() {
 
 		c.Ctx.ViewData("tags", data)
 		c.Ctx.ViewData("menu", menu)
+		c.Ctx.ViewData("ip",  ip.IP())
 
 		c.Ctx.View("tag.html")
 	}
@@ -50,7 +52,7 @@ func (c *TagController) GetBy(id int64) {
 	} else {
 		c.Ctx.ViewData("ID", tag.ID)
 		c.Ctx.ViewData("Name", tag.Name)
-
+		c.Ctx.ViewData("ip",  ip.IP())
 		c.Ctx.ViewData("tagposts", data)
 
 		c.Ctx.ViewData("site", site)

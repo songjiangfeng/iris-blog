@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/GoAdminGroup/go-admin/template"
 	"github.com/kataras/iris/v12"
+	"github.com/songjiangfeng/iris-blog/ip"
 	"github.com/songjiangfeng/iris-blog/service"
 )
 
@@ -33,7 +34,7 @@ func (c *BlogController) Get() {
 	} else {
 
 		c.Ctx.ViewData("site", site)
-
+		c.Ctx.ViewData("ip",  ip.IP())
 		c.Ctx.ViewData("posts", data)
 		c.Ctx.ViewData("menu", menu)
 		c.Ctx.ViewData("PageNo", page)
@@ -65,7 +66,7 @@ func (c *BlogController) GetPageBy(page int64) {
 		c.Ctx.ViewData("PageNo", page)
 		c.Ctx.ViewData("PageNext", pageNext)
 		c.Ctx.ViewData("PagePrev", pagePrev)
-
+		c.Ctx.ViewData("ip",  ip.IP())
 		c.Ctx.View("blog.html")
 
 	}
@@ -99,7 +100,7 @@ func (c *BlogController) GetBy(id int64) {
 		c.Ctx.ViewData("PrevPost", prevpost)
 
 		c.Ctx.ViewData("NextPost", nextpost)
-
+		c.Ctx.ViewData("ip",  ip.IP())
 		c.Ctx.View("blogdetail.html")
 	}
 }
@@ -119,7 +120,7 @@ func (c *BlogController) GetHot() {
 
 		c.Ctx.ViewData("posts", data)
 		c.Ctx.ViewData("menu", menu)
-
+		c.Ctx.ViewData("ip",  ip.IP())
 		c.Ctx.View("bloghot.html")
 	}
 }

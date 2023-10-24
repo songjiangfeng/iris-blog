@@ -97,6 +97,17 @@
 			{{end}}
    	    </div>
 
+         <div class="bg-white lg:px-8 px-6 py-4 shadow-xl z-10 relative mb-8 rounded lg:block hidden">
+                <p>国家： {{.ip.Country}}</p>
+                <p>省份： {{.ip.RegionName}}</p>
+                <p>城市： {{.ip.City}}</p>
+                <p>纬度： {{.ip.Lat}}</p>
+                <p>经度： {{.ip.Lon}}</p>
+                <p>时区： {{.ip.Timezone}}</p>
+                <p>运营商： {{.ip.ISP}}</p>
+                <p>IP：<br/> {{.ip.QueryIp}}</p>
+             </div>
+
       </div>
       <div class="w-full lg:w-3/4 lg:pl-4">
         
