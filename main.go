@@ -79,6 +79,7 @@ func newApp(f config.Config) *iris.Application {
 
 	// asset & files
 	app.HandleDir("/static", assets.AssetFile())
+	app.HandleDir("/assets", iris.Dir(siteTheme.(string) + "/assets"))
 	app.HandleDir("/files", iris.Dir(uploadsDir))
 
 	//default theme
