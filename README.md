@@ -37,16 +37,24 @@ $ iris-cli init
 ## 运行项目  (http://localhost:8080)
 $ iris-cli run .
 
-## 创建文件上传目录以及设置文件权限
-$ mkdir uploads
-
-$ chmod 777 uploads
-
 ## 后台 http://localhost:8888/admin  （注意记得更改密码）
-### 
-` //app.Run(iris.AutoTLS(":443", "www.go365.tech go365.tech", "admin@admin.com")) `
-### 
-`app.Listen(":8888")`
+###  run local
+`
+ "extra": {
+    "domain":"www.go365.tech go365.tech",
+    "site_theme": "./app/theme/default",
+    "env": "local"
+  },
+`
+## 后台 https://domain/admin
+###  run prod
+`
+ "extra": {
+    "domain":"www.go365.tech go365.tech",
+    "site_theme": "./app/theme/default",
+    "env": "prod"
+  },
+`
 
 用户名： admin
 密码： admin
